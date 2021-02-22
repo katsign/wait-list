@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        body {
+            color: #202020!important;
+            background-color: whitesmoke!important;
+        }
+        h3,
+        h4,
+        h5 {
+            text-align: left;
+        }
+        .jumbotron {
+            color: white!important;
+            background-color: powderblue!important;
+        }
+        .row {
+            text-align: center;
+        }
+        a {
+            color: #5bc0de!important;
+        }
+          /* Icon Styling */
+  .material-icons {
+    display: inline-flex;
+    vertical-align: text-bottom;
+  }
+  .material-icons.md-36 {
+    font-size: 36px;
+    vertical-align: middle;
+  }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Hot Restaurant</title>
+</head>
+
+<body>
+    <div class="container">
+    <header class="jumbotron mt-3">
+        <p class="display-4 text-center">Hot <i class="material-icons md-36">whatshot</i> Restaurant</p>
+        <hr class="border-white">
+        <div class="row pt-1">
+            <div class="col-12"> <a href="/reserve"><button class="btn btn-lg btn-primary m-1" id="reserveBtn">Make a
+                        Reservation <i class="material-icons">chevron_right</i></button></a><a href="/tables"><button class="btn btn-lg btn-info m-1">View Tables <i class="material-icons">local_dining</i></button></a></div>
+        </div>
+    </header>
+
+        <h6><a href="api/tables">API Tables</a> | <a href="api/waitlist">API Wait List</a></h6>
+    </div>
+    <script text="text/javascript">
+    </script>
+
+</body>
+
+</html>
