@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: whitesmoke!important;
+        }
+        h3,
+        h4,
+        h5 {
+            text-align: left;
+        }
+        .jumbotron {
+            color: white!important;
+            background-color: powderblue!important;
+        }
+        .card-header {
+            color: white;
+            background-color: #0275d8!important;
+        }
+        .card {
+            margin-bottom: 1rem;
+        }
+
+        .row {
+            text-align: center;
+        }
+        .deleteBtn{
+            text-align: left;
+        }
+        a {
+            color: #5bc0de!important;
+        }
+                  /* Icon Styling */
+  .material-icons {
+    display: inline-flex;
+    vertical-align: text-bottom;
+  }
+  .material-icons.md-36 {
+    font-size: 36px;
+    vertical-align: middle;
+  }
+    </style>
+    <title>Hot Restaurant</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+    <div class="container">
+            <header class="jumbotron mt-3">
+            <p class="display-4 text-center">Hot <i class="material-icons md-36">whatshot</i> Restaurant</p>
+            <hr class="border-white">
+            <div class="row pt-1">
+                <div class="col-12"> <a href="/reserve"><button class="btn btn-lg btn-primary m-1" id="reserveBtn">Make a
+                            Reservation <i class="material-icons">chevron_right</i></button></a><a href="/"><button class="btn btn-lg btn-info m-1"
+                            id="homeBtn">Home <i class="material-icons">home</i></button></a></div>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Current Reservations</h1>
+                    </div>
+                    <div class="card-body" id="tablecard">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Waitlist</h1>
+                    </div>
+                    <div class="card-body" id="waitcard">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-outline-danger mb-3 float-right" id="clearBtn">CLEAR ALL</button>
+            <h6><a href="api/tables">API Tables</a> | <a href="api/waitlist">API Wait List</a></h6>
+    </div>
+
+    <script text="text/javascript">
+
+        function getTables() {
+            $("#tablecard").empty();
+            $.ajax({ url: "api/tables", method: "GET", }).then(function (tdata) {
+                //console.log(tdata);
+
+                for (let i = 0; i < tdata.length; i++) {
+                    var itemobj =
+                    `<h4>Table <small>No. ${i + 1}</small></h4>
+                    <hr>
+                    <h5>Name: ${tdata[i].name}</h5>
+                    <h5>Phone Number: ${tdata[i].phoneNum}</h5>
+                    <h5>Email: ${tdata[i].email}</h5>
+                    <h5>Unique ID: ${tdata[i].uniqueId}</h5>
+                    <button class="btn btn-sm deleteBtn btn-outline-danger float-right" id="tables/${tdata[i].uniqueId}">Delete</button>
+                    <br>`
+                    $("#tablecard").append(itemobj);
+                }
+
+            });
+        }
+
+        function getWaits() {
+            $("#waitcard").empty();
+            
+            $.ajax({ url: "api/waitlist", method: "GET", }).then(function (wdata) {
+                for (let i = 0; i < wdata.length; i++) {
+                    var itemobj =
+                        `<h4>List <small>No. ${i + 1}</small></h4>
+                        <hr>
+                    <h5>Name: ${wdata[i].name}</h5>
+                    <h5>Phone Number: ${wdata[i].phoneNum}</h5>
+                    <h5>Email: ${wdata[i].email}</h5>
+                    <h5>Unique ID: ${wdata[i].uniqueId}</h5>
+                    <button class="btn btn-sm deleteBtn btn-outline-danger float-right" id="waitlist/${wdata[i].uniqueId}">Delete</button>
+                    <br>`
+                    $("#waitcard").append(itemobj);
+                }
+            });
+        }
+
+        function clearAll() {
+
+            $("#waitcard").empty();
+            $("#tablecard").empty();
+
+            $.ajax({ url: "api/tables", method: "DELETE" }).then(function () {
+                alert("Tables cleared!");
+            })
+
+            $.ajax({ url: "api/waitlist", method: "DELETE" }).then(function () {
+                alert("Waitlist cleared!");
+            })
+
+
+        };
+
+        function deleteThis(btn) {
+            let id = btn.attr("id");
+            $.ajax({ url: "api/"+id, method: "DELETE" }).then(function () {
+                alert("Reservation Deleted.");
+                getTables();
+                getWaits();
+            })
+
+        }
+
+        $(document).on("click", ".deleteBtn", function(event){
+            event.preventDefault();
+            deleteThis($(this));
+        });
+
+        $("#clearBtn").on("click", function (event) {
+            event.preventDefault();
+            clearAll();
+        });
+
+        getTables();
+        getWaits();
+
+
+    </script>
+
+</body>
+
+</html>
