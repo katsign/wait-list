@@ -1,0 +1,27 @@
+{
+  "name": "wait-list",
+  "version": "1.0.0",
+  "description": "A take on a \"Hot Restaurant\" reservation-taking/wait-listing app, using fetch method to grab and post input data.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katsign/wait-list.git"
+  },
+  "keywords": [
+    "node",
+    "fetch"
+  ],
+  "author": "katsign",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/katsign/wait-list/issues"
+  },
+  "homepage": "https://github.com/katsign/wait-list#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
