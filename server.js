@@ -37,7 +37,7 @@ var waitlist = [{
 
 // Index/Home View
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, "home.html"));
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Tables View
