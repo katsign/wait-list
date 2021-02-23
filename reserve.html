@@ -1,110 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
     <style>
-        body {
-            color: #202020!important;
-            background-color: whitesmoke!important;
-        }
-        .jumbotron {
-            color: white!important;
-            background-color: powderblue!important;
-        }
-        .row {
-            text-align: center;
-        }
-        a {
-            color: #5bc0de!important;
-        }
-          /* Icon Styling */
-  .material-icons {
-    display: inline-flex;
-    vertical-align: text-bottom;
-  }
-  .material-icons.md-36 {
-    font-size: 36px;
-    vertical-align: middle;
-  }
+      body {
+        color: #202020 !important;
+        background-color: whitesmoke !important;
+      }
+      .jumbotron {
+        color: white !important;
+        background-color: powderblue !important;
+      }
+      .row {
+        text-align: center;
+      }
+      a {
+        color: #5bc0de !important;
+      }
+      /* Icon Styling */
+      .material-icons {
+        display: inline-flex;
+        vertical-align: text-bottom;
+      }
+      .material-icons.md-36 {
+        font-size: 36px;
+        vertical-align: middle;
+      }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Hot Restaurant</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-    <header class="jumbotron mt-3">
-        <p class="display-4 text-center">Hot <i class="material-icons md-36">whatshot</i> Restaurant</p>
-        <hr class="border-white">
+      <header class="jumbotron mt-3">
+        <p class="display-4 text-center">
+          Hot <i class="material-icons md-36">whatshot</i> Restaurant
+        </p>
+        <hr class="border-white" />
         <div class="row pt-1">
-            <div class="col-12"> <a href="/tables"><button class="btn btn-lg btn-primary m-1" id="tablesBtn">View Tables <i class="material-icons">local_dining</i></button></a><a href="/"><button class="btn btn-lg btn-info m-1"
-                        id="homeBtn">Home <i class="material-icons">home</i></button></a></div>
+          <div class="col-12">
+            <a href="/tables"
+              ><button class="btn btn-lg btn-primary m-1" id="tablesBtn">
+                View Tables <i class="material-icons">local_dining</i>
+              </button></a
+            ><a href="/"
+              ><button class="btn btn-lg btn-info m-1" id="homeBtn">
+                Home <i class="material-icons">home</i>
+              </button></a
+            >
+          </div>
         </div>
-    </header>
+      </header>
 
-        <form method="POST" role="form">
+      <form method="POST" role="form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" />
+        </div>
 
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name">
-            </div>
+        <div class="form-group">
+          <label for="phoneNum">Phone Number</label>
+          <input type="text" class="form-control" id="phoneNum" />
+        </div>
 
-            <div class="form-group">
-                <label for="phoneNum">Phone Number</label>
-                <input type="text" class="form-control" id="phoneNum">
-            </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" />
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email">
-            </div>
+        <div class="form-group">
+          <label for="uniqueId">Unique ID</label>
+          <input type="text" class="form-control" id="uniqueId" />
+        </div>
 
-            <div class="form-group">
-                <label for="uniqueId">Unique ID</label>
-                <input type="text" class="form-control" id="uniqueId">
-            </div>
+        <button
+          type="submit"
+          class="btn btn-primary float-right mb-3"
+          id="submitBtn"
+        >
+          Submit
+        </button>
+      </form>
 
-            <button type="submit" class="btn btn-primary float-right mb-3" id="submitBtn">Submit</button>
-
-        </form>
-
-        <h6><a href="api/tables">API Tables</a> | <a href="api/waitlist">API Wait List</a></h6>
+      <h6>
+        <a href="api/tables">API Tables</a> |
+        <a href="api/waitlist">API Wait List</a>
+      </h6>
     </div>
     <script text="text/javascript">
+      $("#submitBtn").on("click", function (event) {
+        event.preventDefault();
+        var newReserve = {
+          name: $("#name").val().trim(),
+          phoneNum: $("#phoneNum").val().trim(),
+          email: $("#email").val().trim(),
+          uniqueId: $("#uniqueId").val().trim(),
+        };
 
-        $("#submitBtn").on("click", function (event) {
-            event.preventDefault();
-            var newReserve = {
-                name: $("#name").val().trim(),
-                phoneNum: $("#phoneNum").val().trim(),
-                email: $("#email").val().trim(),
-                uniqueId: $("#uniqueId").val().trim()
-            }
+        //console.log(newReserve);
 
-            //console.log(newReserve);
-
-            $.post("api/tables", newReserve).then(function (data) {
-                if (data === "tables") { alert("Reservation added!"); }
-                else {
-                    alert("You're on the waitlist!");
-                }
-            });
-
-            $("#name").val("");
-            $("#phoneNum").val("");
-            $("#email").val("");
-            $("#uniqueId").val("");
-
+        // $.post("api/tables", newReserve).then(function (data) {
+        //     if (data === "tables") { alert("Reservation added!"); }
+        //     else {
+        //         alert("You're on the waitlist!");
+        //     }
+        // });
+        fetch("/api/tables", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newReserve),
         })
+          .then((data) => {
+            console.log(data);
+            if (data.name == newReserve.name) {
+              alert(`Congratulations on your reservation!`);
+            } else {
+              alert(
+                `We are sorry, we are currently booked to the max. We will add you to our waiting list!`
+              );
+            }
+            location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        $("#name").val("");
+        $("#phoneNum").val("");
+        $("#email").val("");
+        $("#uniqueId").val("");
+      });
     </script>
-
-</body>
-
+  </body>
 </html>

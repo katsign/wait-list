@@ -10,21 +10,25 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
-            background-color: whitesmoke!important;
+            background-color: whitesmoke !important;
         }
+
         h3,
         h4,
         h5 {
             text-align: left;
         }
+
         .jumbotron {
-            color: white!important;
-            background-color: powderblue!important;
+            color: white !important;
+            background-color: powderblue !important;
         }
+
         .card-header {
             color: white;
-            background-color: #0275d8!important;
+            background-color: #0275d8 !important;
         }
+
         .card {
             margin-bottom: 1rem;
         }
@@ -32,36 +36,42 @@
         .row {
             text-align: center;
         }
-        .deleteBtn{
+
+        .deleteBtn {
             text-align: left;
         }
+
         a {
-            color: #5bc0de!important;
+            color: #5bc0de !important;
         }
-                  /* Icon Styling */
-  .material-icons {
-    display: inline-flex;
-    vertical-align: text-bottom;
-  }
-  .material-icons.md-36 {
-    font-size: 36px;
-    vertical-align: middle;
-  }
+
+        /* Icon Styling */
+        .material-icons {
+            display: inline-flex;
+            vertical-align: text-bottom;
+        }
+
+        .material-icons.md-36 {
+            font-size: 36px;
+            vertical-align: middle;
+        }
     </style>
     <title>Hot Restaurant</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
-    
+
     <div class="container">
-            <header class="jumbotron mt-3">
+        <header class="jumbotron mt-3">
             <p class="display-4 text-center">Hot <i class="material-icons md-36">whatshot</i> Restaurant</p>
             <hr class="border-white">
             <div class="row pt-1">
-                <div class="col-12"> <a href="/reserve"><button class="btn btn-lg btn-primary m-1" id="reserveBtn">Make a
-                            Reservation <i class="material-icons">chevron_right</i></button></a><a href="/"><button class="btn btn-lg btn-info m-1"
-                            id="homeBtn">Home <i class="material-icons">home</i></button></a></div>
+                <div class="col-12"> <a href="/reserve"><button class="btn btn-lg btn-primary m-1" id="reserveBtn">Make
+                            a
+                            Reservation <i class="material-icons">chevron_right</i></button></a><a href="/"><button
+                            class="btn btn-lg btn-info m-1" id="homeBtn">Home <i
+                                class="material-icons">home</i></button></a></div>
             </div>
         </header>
 
@@ -89,35 +99,47 @@
         </div>
 
         <button class="btn btn-outline-danger mb-3 float-right" id="clearBtn">CLEAR ALL</button>
-            <h6><a href="api/tables">API Tables</a> | <a href="api/waitlist">API Wait List</a></h6>
+        <h6><a href="api/tables">API Tables</a> | <a href="api/waitlist">API Wait List</a></h6>
     </div>
 
     <script text="text/javascript">
 
+
+        ///
         function getTables() {
-            document.getElementById('#tablecard').empty();
-            fetch('/tables').then(function (tdata) {
-                //console.log(tdata);
-
-                for (let i = 0; i < tdata.length; i++) {
-                    var itemobj =
-                    `<h4>Table <small>No. ${i + 1}</small></h4>
-                    <hr>
-                    <h5>Name: ${tdata[i].name}</h5>
-                    <h5>Phone Number: ${tdata[i].phoneNum}</h5>
-                    <h5>Email: ${tdata[i].email}</h5>
-                    <h5>Unique ID: ${tdata[i].uniqueId}</h5>
-                    <button class="btn btn-sm deleteBtn btn-outline-danger float-right" id="tables/${tdata[i].uniqueId}">Delete</button>
-                    <br>`
-                    ('#tablecard').join(itemobj);
+            document.getElementById('tablecard').innerHTML = "";
+            fetch('/api/tables', {
+                method: "GET", headers: {
+                    "Content-Type": "application/json",
                 }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
 
-            });
+                    // for (let i = 0; i < data.length; i++) {
+                    data.forEach(element => {
+                        console.log(element)
+                        const { name, phoneNum, email, uniqueId } = element
+                        var itemobj =
+                            `<h4>Table <small>No. ${data.indexOf(element) + 1}</small></h4>
+                    <hr>
+                    <h5>Name: ${name}</h5>
+                    <h5>Phone Number: ${phoneNum}</h5>
+                    <h5>Email: ${email}</h5>
+                    <h5>Unique ID: ${uniqueId}</h5>
+                    <button class="btn btn-sm deleteBtn btn-outline-danger float-right" id="tables/${uniqueId}">Delete</button>
+                    <br>`
+
+                        $('#tablecard').append(itemobj);
+
+                    });
+                })
         }
 
         function getWaits() {
             $("#waitcard").empty();
-            
+
             $.ajax({ url: "api/waitlist", method: "GET", }).then(function (wdata) {
                 for (let i = 0; i < wdata.length; i++) {
                     var itemobj =
@@ -152,7 +174,7 @@
 
         function deleteThis(btn) {
             let id = btn.attr("id");
-            $.ajax({ url: "api/"+id, method: "DELETE" }).then(function () {
+            $.ajax({ url: "api/" + id, method: "DELETE" }).then(function () {
                 alert("Reservation Deleted.");
                 getTables();
                 getWaits();
@@ -160,7 +182,7 @@
 
         }
 
-        $(document).on("click", ".deleteBtn", function(event){
+        $(document).on("click", ".deleteBtn", function (event) {
             event.preventDefault();
             deleteThis($(this));
         });
