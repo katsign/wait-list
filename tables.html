@@ -95,8 +95,8 @@
     <script text="text/javascript">
 
         function getTables() {
-            $("#tablecard").empty();
-            $.ajax({ url: "api/tables", method: "GET", }).then(function (tdata) {
+            document.getElementById('#tablecard').empty();
+            fetch('/tables').then(function (tdata) {
                 //console.log(tdata);
 
                 for (let i = 0; i < tdata.length; i++) {
@@ -109,7 +109,7 @@
                     <h5>Unique ID: ${tdata[i].uniqueId}</h5>
                     <button class="btn btn-sm deleteBtn btn-outline-danger float-right" id="tables/${tdata[i].uniqueId}">Delete</button>
                     <br>`
-                    $("#tablecard").append(itemobj);
+                    ('#tablecard').join(itemobj);
                 }
 
             });
