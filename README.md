@@ -1,5 +1,8 @@
+<div align="center">
+
 # Hot Restaurant Reservation App :fire::fork_and_knife:
 ![GitHub license](https://img.shields.io/badge/License-MIT-orange)
+</div>
 
 ### This reservation-taking and wait-listing app uses the fetch method to grab and post input data.
 
@@ -10,8 +13,7 @@
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
-- [Tests](#tests)
-- [Questions](#questions)
+- [Contact](#contact)
 
 ## *Description*
 Store reservation and waitlist data server-side and cleanly display it on an HTML page with this very simple fullstack app.
@@ -34,11 +36,10 @@ Navigate into the root folder of the repository and open up a terminal. Type `np
 ## *Contributing*
 Contributions welcome, raise issues and submit through pull requests.
 
-## *Tests*
-N/A
+## *Contact*
+🔗 Links in Bio @[katsign](https://github.com/katsign)
 
-## *Questions?*
-- My Profile: [katsign](https://github.com/katsign)
+![Email Badge](https://img.shields.io/badge/Email%20Me-mailtokatsign%40gmail.com-d8bfd8)
 
 ---
-This project is  licensed. &copy; 2021
+This project is MIT licensed. &copy; 2021
